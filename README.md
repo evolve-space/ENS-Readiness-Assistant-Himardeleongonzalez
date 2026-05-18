@@ -7,7 +7,7 @@
 
 > Plataforma GRC para automatizar evaluaciones de adecuación al **Esquema Nacional de Seguridad (RD 311/2022)**.
 
-**[Ver demo en vivo →](https://himardlg.github.io/ens-readiness-assistant)**
+
 
 ---
 
@@ -107,7 +107,6 @@ Cybersecurity Junior · GRC & Compliance
 
 - 🔗 [LinkedIn](https://www.linkedin.com/in/himar-de-leon-gonzalez)
 - 🎯 HackTheBox: Pelu0x
-- 📧 hiramyclases@gmail.com
 
 ## Licencia
 
