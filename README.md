@@ -7,7 +7,7 @@
 
 > Plataforma GRC para automatizar evaluaciones de adecuación al **Esquema Nacional de Seguridad (RD 311/2022)**.
 
-
+**[Ver demo en vivo →](https://himardlg.github.io/ens-readiness-assistant)**
 
 ---
 
@@ -67,7 +67,31 @@ ens-readiness-assistant/
 └── LICENSE       # Licencia MIT
 ```
 
+## Roadmap — próximas versiones
 
+### v1.1 — Mejoras inmediatas
+- [ ] Ampliar a 30+ controles ENS completos
+- [ ] Añadir más tipos de organizaciones
+- [ ] Exportación a PDF mejorada
+
+### v1.2 — Integración IA
+- [ ] Chat IA para resolver dudas durante la evaluación
+- [ ] Análisis de brechas con recomendaciones IA personalizadas
+- [ ] Integración con API Claude
+
+### v2.0 — Arquitectura completa
+- [ ] Backend FastAPI + Python
+- [ ] Base de datos PostgreSQL para persistencia
+- [ ] Dashboard de madurez y evolución temporal
+- [ ] Gestión de evidencias de cumplimiento
+- [ ] Múltiples usuarios y organizaciones
+- [ ] Docker + GitHub Actions CI/CD
+
+## Despliegue en GitHub Pages
+
+1. Sube el repositorio a GitHub (público)
+2. Settings → Pages → Source: main → / (root)
+3. En 2 minutos disponible en `https://TU-USUARIO.github.io/ens-readiness-assistant`
 
 ## Marco normativo
 
@@ -83,6 +107,7 @@ Cybersecurity Junior · GRC & Compliance
 
 - 🔗 [LinkedIn](https://www.linkedin.com/in/himar-de-leon-gonzalez)
 - 🎯 HackTheBox: Pelu0x
+- 📧 hiramyclases@gmail.com
 
 ## Licencia
 

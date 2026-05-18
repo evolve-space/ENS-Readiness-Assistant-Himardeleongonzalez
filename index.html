@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENS Readiness Assistant — Plataforma GRC de adecuación al ENS</title>
+  <meta name="description" content="Plataforma de compliance y ciberseguridad para automatizar evaluaciones de adecuación al Esquema Nacional de Seguridad (ENS, RD 311/2022)." />
+  <meta name="author" content="Himar de León González" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="brand-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+        <div>
+          <h1>ENS Readiness Assistant</h1>
+          <p>Plataforma GRC · Evaluación de adecuación al ENS (RD 311/2022)</p>
+        </div>
+      </div>
+      <div class="header-links">
+        <a href="https://www.linkedin.com/in/himar-de-leon-gonzalez" target="_blank" rel="noopener">
+          <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn
+        </a>
+        <a href="https://github.com/himardlg/ens-readiness-assistant" target="_blank" rel="noopener">
+          <i class="ti ti-brand-github" aria-hidden="true"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- PASO 1: BIENVENIDA -->
+    <section id="step-welcome" class="step active">
+      <div class="welcome-card">
+        <div class="welcome-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+        <h2>ENS Readiness Assistant</h2>
+        <p>Esta herramienta te ayuda a determinar si tu organización está obligada a cumplir el <strong>Esquema Nacional de Seguridad (RD 311/2022)</strong>, calcular la categoría de tus sistemas y obtener un análisis de brechas con recomendaciones concretas.</p>
+
+        <div class="welcome-features">
+          <div class="feature"><i class="ti ti-check" aria-hidden="true"></i> ¿Aplica el ENS a tu organización?</div>
+          <div class="feature"><i class="ti ti-check" aria-hidden="true"></i> Categorización del sistema (Básica / Media / Alta)</div>
+          <div class="feature"><i class="ti ti-check" aria-hidden="true"></i> Análisis de brechas de cumplimiento</div>
+          <div class="feature"><i class="ti ti-check" aria-hidden="true"></i> Recomendaciones prioritarias</div>
+          <div class="feature"><i class="ti ti-check" aria-hidden="true"></i> Informe exportable</div>
+        </div>
+
+        <div class="disclaimer">
+          <i class="ti ti-info-circle" aria-hidden="true"></i>
+          Herramienta educativa basada en el RD 311/2022. No sustituye el análisis de un consultor GRC certificado.
+        </div>
+
+        <button class="btn-primary" onclick="goToStep('step-org')">
+          Comenzar evaluación <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- PASO 2: DATOS DE LA ORGANIZACIÓN -->
+    <section id="step-org" class="step hidden">
+      <div class="step-header">
+        <div class="step-number">1 / 4</div>
+        <h2>Datos de la organización</h2>
+        <p>Información básica para determinar si el ENS aplica a tu entidad.</p>
+      </div>
+
+      <div class="form-card">
+        <div class="form-group">
+          <label for="org-name">Nombre de la organización *</label>
+          <input type="text" id="org-name" placeholder="Ej: Ayuntamiento de Las Palmas" required />
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de organización *</label>
+          <div class="radio-group" id="org-type">
+            <label class="radio-option">
+              <input type="radio" name="org-type" value="aapp" /> Administración Pública (Estado, CCAA, EELL)
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="org-type" value="proveedor" /> Empresa privada proveedora de la AAPP
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="org-type" value="universidad" /> Universidad o centro educativo público
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="org-type" value="privada" /> Empresa privada sin relación con AAPP
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Sector de actividad *</label>
+          <select id="org-sector">
+            <option value="">Selecciona un sector...</option>
+            <option value="administracion">Administración General del Estado</option>
+            <option value="ccaa">Administración Autonómica</option>
+            <option value="eell">Entidad Local (Ayuntamiento, Cabildo, Diputación)</option>
+            <option value="sanidad">Sanidad pública</option>
+            <option value="educacion">Educación pública</option>
+            <option value="justicia">Justicia</option>
+            <option value="it_proveedor">IT / Tecnología (proveedor AAPP)</option>
+            <option value="defensa">Defensa y seguridad</option>
+            <option value="privada_sin_aapp">Empresa privada sin contrato AAPP</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="org-employees">Número aproximado de empleados</label>
+          <select id="org-employees">
+            <option value="micro">Menos de 10</option>
+            <option value="pequena">10 - 49</option>
+            <option value="mediana">50 - 249</option>
+            <option value="grande" selected>250 o más</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goToStep('step-welcome')">
+            <i class="ti ti-arrow-left" aria-hidden="true"></i> Atrás
+          </button>
+          <button class="btn-primary" onclick="validateOrgAndNext()">
+            Siguiente <i class="ti ti-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASO 3: SISTEMAS Y SERVICIOS -->
+    <section id="step-systems" class="step hidden">
+      <div class="step-header">
+        <div class="step-number">2 / 4</div>
+        <h2>Sistemas y servicios</h2>
+        <p>Identifica los sistemas y el tipo de información que gestionas.</p>
+      </div>
+
+      <div class="form-card">
+        <div class="form-group">
+          <label>¿Qué tipo de información gestionan tus sistemas? (selecciona todos los que apliquen)</label>
+          <div class="checkbox-group">
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="ciudadanos" /> Datos personales de ciudadanos</label>
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="salud" /> Datos de salud o historia clínica</label>
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="fiscal" /> Datos fiscales o tributarios</label>
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="judicial" /> Datos judiciales o policiales</label>
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="critica" /> Información de infraestructuras críticas</label>
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="interna" /> Información interna de gestión</label>
+            <label class="checkbox-option"><input type="checkbox" name="info-type" value="publica" /> Información pública sin clasificar</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>¿Cuál es el impacto si los sistemas no están disponibles?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="disponibilidad" value="bajo" /> Bajo — afecta solo a procesos internos menores</label>
+            <label class="radio-option"><input type="radio" name="disponibilidad" value="medio" /> Medio — afecta a servicios públicos importantes</label>
+            <label class="radio-option"><input type="radio" name="disponibilidad" value="alto" /> Alto — paraliza servicios esenciales o críticos</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>¿Cuál es el impacto si la información se filtra o modifica sin autorización?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="confidencialidad" value="bajo" /> Bajo — información pública o de bajo impacto</label>
+            <label class="radio-option"><input type="radio" name="confidencialidad" value="medio" /> Medio — datos personales o información sensible</label>
+            <label class="radio-option"><input type="radio" name="confidencialidad" value="alto" /> Alto — datos críticos cuya filtración causaría daño grave</label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goToStep('step-org')">
+            <i class="ti ti-arrow-left" aria-hidden="true"></i> Atrás
+          </button>
+          <button class="btn-primary" onclick="goToStep('step-controls')">
+            Siguiente <i class="ti ti-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASO 4: CONTROLES ACTUALES -->
+    <section id="step-controls" class="step hidden">
+      <div class="step-header">
+        <div class="step-number">3 / 4</div>
+        <h2>Estado de controles de seguridad</h2>
+        <p>Indica qué controles tienes implementados actualmente.</p>
+      </div>
+
+      <div class="form-card">
+        <div class="controls-grid" id="controls-grid">
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.pl.1</span>
+              <span class="control-name">Política de Seguridad</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c1" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c1" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c1" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">org.1</span>
+              <span class="control-name">Roles ENS definidos</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c2" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c2" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c2" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.pl.2</span>
+              <span class="control-name">Análisis de riesgos</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c3" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c3" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c3" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.acc.1</span>
+              <span class="control-name">Control de acceso</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c4" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c4" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c4" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.exp.7</span>
+              <span class="control-name">Gestión de incidentes</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c5" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c5" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c5" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.con.3</span>
+              <span class="control-name">Copias de seguridad</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c6" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c6" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c6" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">mp.per.3</span>
+              <span class="control-name">Formación y concienciación</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c7" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c7" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c7" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.exp.8</span>
+              <span class="control-name">Registro de actividad (logs)</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c8" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c8" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c8" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">mp.if.1</span>
+              <span class="control-name">Seguridad física</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c9" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c9" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c9" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+          <div class="control-item">
+            <div class="control-header">
+              <span class="control-ref">op.con.2</span>
+              <span class="control-name">Continuidad de negocio</span>
+            </div>
+            <div class="control-status">
+              <label><input type="radio" name="c10" value="si" /> Sí implementado</label>
+              <label><input type="radio" name="c10" value="parcial" /> Parcialmente</label>
+              <label><input type="radio" name="c10" value="no" checked /> No implementado</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goToStep('step-systems')">
+            <i class="ti ti-arrow-left" aria-hidden="true"></i> Atrás
+          </button>
+          <button class="btn-primary" onclick="generateReport()">
+            <i class="ti ti-report-analytics" aria-hidden="true"></i> Generar informe
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASO 5: RESULTADO -->
+    <section id="step-result" class="step hidden">
+      <div class="step-header">
+        <div class="step-number">4 / 4</div>
+        <h2>Informe de adecuación ENS</h2>
+        <p>Resultados de la evaluación de tu organización.</p>
+      </div>
+
+      <div id="result-content"></div>
+
+      <div class="btn-row" style="margin-top:20px">
+        <button class="btn-secondary" onclick="goToStep('step-controls')">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i> Revisar respuestas
+        </button>
+        <button class="btn-primary" onclick="printReport()">
+          <i class="ti ti-printer" aria-hidden="true"></i> Imprimir / Guardar PDF
+        </button>
+        <button class="btn-secondary" onclick="resetAll()">
+          <i class="ti ti-refresh" aria-hidden="true"></i> Nueva evaluación
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>
+      Desarrollado por
+      <a href="https://www.linkedin.com/in/himar-de-leon-gonzalez" target="_blank" rel="noopener">Himar de León González</a>
+      · Cybersecurity Junior · GRC &amp; Compliance
+      · <a href="https://github.com/himardlg/ens-readiness-assistant" target="_blank" rel="noopener">Ver en GitHub</a>
+    </p>
+    <p class="footer-disclaimer">
+      Herramienta educativa basada en el RD 311/2022. No sustituye el análisis de un consultor GRC certificado.
+      Fuentes: <a href="https://ens.ccn.cni.es" target="_blank" rel="noopener">CCN-CERT</a> ·
+      <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2022-7191" target="_blank" rel="noopener">BOE</a>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
