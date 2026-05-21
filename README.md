@@ -87,11 +87,7 @@ ens-readiness-assistant/
 - [ ] Múltiples usuarios y organizaciones
 - [ ] Docker + GitHub Actions CI/CD
 
-## Despliegue en GitHub Pages
 
-1. Sube el repositorio a GitHub (público)
-2. Settings → Pages → Source: main → / (root)
-3. En 2 minutos disponible en `https://TU-USUARIO.github.io/ens-readiness-assistant`
 
 ## Marco normativo
 
